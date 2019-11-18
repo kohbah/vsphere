@@ -20,12 +20,7 @@ pipeline {
             steps {
              vSphere buildStep: [$class: 'Reconfigure', reconfigureSteps: [[$class: 'ReconfigureMemory', memorySize: '2048']], vm: 'node1'], serverName: 'vcenter'
             }
-        }  
-        stage(' adding vm to 480-Devops') {
-            steps {
-               vSphere buildStep: [$class: 'Reconfigure', reconfigureSteps: [[$class: 'ReconfigureNetworkAdapters', deviceAction: 'EDIT', deviceLabel: '', distributedPortGroup: '480-Devops', distributedPortId: '480', distributedSwitch: true, macAddress: '', standardSwitch: false]], vm: 'node1'], serverName: 'vcenter'
-            }
-        }  
+        }       
         stage(' powering on vm') {
             steps {
                vSphere buildStep: [$class: 'PowerOn', timeoutInSeconds: 180, vm: 'node1'], serverName: 'vcenter'
