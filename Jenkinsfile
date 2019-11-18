@@ -8,7 +8,7 @@ pipeline {
         }     
         stage('deploying vm from ubuntu template') {
             steps {
-               vSphere buildStep: [$class: 'Deploy', clone: 'node1', cluster: 'Compute-Cluster-01', datastore: '', folder: '', linkedClone: false, powerOn: false, resourcePool: '', template: 'ubuntu', timeoutInSeconds: 60], serverName: 'vcenter'
+               vSphere buildStep: [$class: 'Deploy', clone: 'node1', cluster: 'Compute-Cluster-01', datastore: '', folder: '', linkedClone: false, powerOn: true, resourcePool: '', template: 'ubuntu', timeoutInSeconds: 60], serverName: 'vcenter'
             }
         }   
         stage('reconfigureing vm to 2 cpu and 4 cores ') {
