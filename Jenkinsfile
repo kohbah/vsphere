@@ -8,7 +8,7 @@ pipeline {
         }     
         stage('deploying vm from ubuntu template') {
             steps {
-               vSphere buildStep: [$class: 'Deploy', clone: 'node1', cluster: 'Compute-Cluster-01', datastore: '', folder: '', linkedClone: false, powerOn: true, resourcePool: '', template: 'ubuntu', timeoutInSeconds: 60], serverName: 'vcenter'
+              vSphere buildStep: [$class: 'Deploy', clone: 'node1', cluster: 'Compute-Cluster-01', datastore: '', folder: '', linkedClone: false, powerOn: false, resourcePool: '', template: 'ubuntu', timeoutInSeconds: 60], serverName: 'vcenter'
             }
         }   
         stage('reconfigureing vm to 2 cpu and 4 cores ') {
@@ -26,7 +26,11 @@ pipeline {
                vSphere buildStep: [$class: 'Reconfigure', reconfigureSteps: [[$class: 'ReconfigureNetworkAdapters', deviceAction: 'EDIT', deviceLabel: '', distributedPortGroup: '480-Devops', distributedPortId: '480', distributedSwitch: true, macAddress: '', standardSwitch: false]], vm: 'node1'], serverName: 'vcenter'
             }
         }  
-         
+        stage(' powering on vm') {
+            steps {
+               vSphere buildStep: [$class: 'PowerOn', timeoutInSeconds: 180, vm: 'node1'], serverName: 'vcenter'
+            }
+        }    
       }
    }
     
